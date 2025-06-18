@@ -26,8 +26,7 @@ find_package(pybind11 CONFIG REQUIRED)
 python_add_library(cCOSMO MODULE "${CMAKE_CURRENT_SOURCE_DIR}/src/pybind11_interface.cxx" WITH_SOABI)
 target_link_libraries(cCOSMO PRIVATE pybind11::headers)
 target_include_directories(cCOSMO PUBLIC ${MY_INCLUDES})
-# The install directory is the output (wheel) directory
-install(TARGETS cCOSMO DESTINATION cCOSMO)
+install(TARGETS cCOSMO DESTINATION .)
 
 add_executable(catch_tests "${CMAKE_CURRENT_SOURCE_DIR}/tests/catch_tests.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/tests/catch_main.cpp")
 target_sources(catch_tests PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/externals/Eigen/debug/msvc/eigen.natvis" "${CMAKE_CURRENT_SOURCE_DIR}/externals/nlohmann/nlohmann_json.natvis")
