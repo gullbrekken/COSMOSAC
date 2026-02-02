@@ -15,17 +15,17 @@ from to_sigma import read_Dmol3, write_sigma
 
 def write_one(cosmo_path, *, num_profiles, averaging):
     # print(cosmo_path)
-    try:
-        dmol = read_Dmol3(inpath=cosmo_path, num_profiles=num_profiles, averaging=averaging)
-        inchikey = os.path.split(cosmo_path)[1].split('.')[0]
-        outpath = 'UD/sigma'+str(num_profiles)+'/'+inchikey+'.sigma'
-        write_sigma(dmol, outpath, force = True)
-    except BaseException as BE:
-        print('ERROR:', BE, cosmo_path)
+    #try:
+    dmol = read_Dmol3(inpath=cosmo_path, num_profiles=num_profiles, averaging=averaging)
+    inchikey = os.path.split(cosmo_path)[1].split('.')[0]
+    outpath = '/home/ystein-gullbrekken/Github/cosmo_files/sigma'+str(num_profiles)+'/'+inchikey+'.sigma'
+    write_sigma(dmol, outpath, force = True)
+    #except BaseException as BE:
+        #print('ERROR:', BE, cosmo_path)
         # raise
-
+    
 if __name__ == '__main__':
-    files = glob.glob('UD/cosmo/*.cosmo')
+    files = glob.glob('/home/ystein-gullbrekken/Github/cosmo_files/*.cosmo')
 
     # # SERIAL
     # for num_profiles in [3]:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     #     print(timeit.default_timer()-tic,'s')
 
     # PARALLEL
-    f = functools.partial(write_one, num_profiles = 3, averaging='Hsieh')
+    f = functools.partial(write_one, num_profiles = 1, averaging='Hsieh')
     pool = multiprocessing.Pool(4)
     tic = timeit.default_timer()
     pool.map(f, files)
